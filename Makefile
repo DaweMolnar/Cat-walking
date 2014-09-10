@@ -1,7 +1,12 @@
 CC=g++
-CFLAGS = -I. \
-				-I/usr/include/SDL2 \
-				-std=c++0x 
+CFLAGS = \
+				-std=c++11 \
+				-Wall \
+				-Wpedantic \
+				-Wextra
+
+INCLUDES= -I. \
+					-I/usr/include/SDL2
 
 LIBS= -lstdc++ \
 			-lSDL2 \
@@ -11,15 +16,16 @@ LIBS= -lstdc++ \
 DEPS = Enemy.h \
 			MovingItem.h \
 			SDL_Main.h \
+			Utils.h \
 			Character.h
 
-OBJ = Enemy.o MovingItem.o Character.o SDL_Main.o main.o
+OBJ = Utils.o Enemy.o MovingItem.o Character.o SDL_Main.o main.o
 
 %.o: %.cpp $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+	$(CC) $(CFLAGS) -c -o $@ $< $(INCLUDES)
 
 catwalk: $(OBJ)
-	gcc -o $@ $^ $(CFLAGS) $(LIBS)
+	$(CC) $(CFLAGS) -o $@ $^ $(INCLUDES) $(LIBS)
 
 .PHONY: clean
 clean:
