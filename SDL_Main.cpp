@@ -3,6 +3,7 @@
 #include <errno.h>
 #include <algorithm>
 #include <stdexcept>
+#include <Utils.h>
 #define MAX_ENEMY 5
 
 SDL_Main::SDL_Main()
@@ -92,6 +93,7 @@ SDL_Main::moveItems()
 		}
 		SDL_Rect rect = catChar_->getDestination();
 		if (enemyList_[i]->isCollide(rect)) {
+			LOG("Game ended with score : " + std::to_string(score_));
 			run_ = false;
 		}
 	}

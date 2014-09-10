@@ -32,7 +32,10 @@ Utils::get_date()
 void
 Utils::log_to_file(const std::string &text)
 {
+	std::string use = text; //Ifndef DEBUG, without this unused variable warning
+#ifdef DEBUG
 	std::string filename = "log_" + get_date() + ".txt";
 	std::ofstream log_file(filename, std::ios_base::out | std::ios_base::app );
 	log_file << currentDateTime() << " : " << text << std::endl;
+#endif
 }
