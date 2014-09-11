@@ -5,9 +5,13 @@
 
 int main(){
 	LOG("New game started");
+	int endCause = 0;
 	srand(time(NULL));
-	SDL_Main catProg;
-	catProg.EventLoop();
+	while(endCause == 0) {
+		SDL_Main catProg;
+		endCause = catProg.EventLoop();
+	}
+	LOG("User closed game window");
 	return 0;
 
 }

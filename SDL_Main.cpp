@@ -8,7 +8,8 @@
 
 SDL_Main::SDL_Main()
 	: run_(true),
-	score_(0)
+	score_(0),
+	retCause_(0)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
 		throw std::runtime_error(SDL_GetError());
@@ -64,6 +65,7 @@ SDL_Main::handleEvents(SDL_Event &e)
 			catChar_->turnDown();
 		break;
 	case SDL_QUIT:
+		retCause_ = -1;
 		run_ = false;
 		break;
 	default:
@@ -117,7 +119,7 @@ SDL_Main::renderItems()
 	SDL_RenderPresent(ren_);
 }
 
-void
+int
 SDL_Main::EventLoop()
 {
 	while (run_) {
@@ -129,8 +131,11 @@ SDL_Main::EventLoop()
 		}
 		SDL_Delay(200);
 	}
+	return retCause_;
 }
 
 SDL_Main::~SDL_Main()
 {
+	SDL_DestroyRenderer(ren_);
+	SDL_DestroyWindow(win_);
 }
