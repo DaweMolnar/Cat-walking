@@ -11,7 +11,7 @@ class SDL_Main
 	bool run_;
 	unsigned int score_;
 	unsigned int retCause_;
-	SDL_Window *win_;
+	SDL_Window &win_;
 	SDL_Renderer *ren_;
 	SDL_Texture *background_;
 	Character* catChar_;
@@ -24,7 +24,7 @@ class SDL_Main
 	void moveItems();
 	void addNewEnemies();
 public:
-	SDL_Main();
+	SDL_Main(SDL_Window& window);
 	~SDL_Main();
 	int EventLoop();
 	bool run() { return run_; }

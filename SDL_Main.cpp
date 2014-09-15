@@ -6,19 +6,14 @@
 #include <Utils.h>
 #define MAX_ENEMY 5
 
-SDL_Main::SDL_Main()
-	: run_(true),
+SDL_Main::SDL_Main(SDL_Window& window)
+	: 
+	run_(true),
 	score_(0),
-	retCause_(0)
+	retCause_(0),
+	win_(window)
 {
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
-		throw std::runtime_error(SDL_GetError());
-	}
-	win_= SDL_CreateWindow("CatMove", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
-	if (win_ == 0) {
-		throw std::runtime_error(SDL_GetError());
-	}
-	ren_ = SDL_CreateRenderer(win_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	ren_ = SDL_CreateRenderer(&win_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (ren_ == 0) {
 		throw std::runtime_error(SDL_GetError());
 	}
@@ -137,5 +132,4 @@ SDL_Main::EventLoop()
 SDL_Main::~SDL_Main()
 {
 	SDL_DestroyRenderer(ren_);
-	SDL_DestroyWindow(win_);
 }
