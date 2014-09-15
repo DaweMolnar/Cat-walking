@@ -1,6 +1,7 @@
 #include "Character.h"
 #include <errno.h>
 
+#define STEP_SIZE 10
 #define SECTION_WIDTH 32
 #define SECTION_HEIGHT 32
 #define SPRITE_MAX 128
@@ -38,7 +39,7 @@ Character::moveLeft()
 {
 	section_.y = COLUMN_LEFT * SECTION_HEIGHT;
 	section_.x = (section_.x + SECTION_WIDTH) % SPRITE_MAX;
-	destination_.x = destination_.x - SECTION_WIDTH;
+	destination_.x = destination_.x - STEP_SIZE;
 	if (destination_.x < 0) {
 		destination_.x = WINDOW_WIDTH;
 	}
@@ -49,7 +50,7 @@ Character::moveRight()
 {
 	section_.y = COLUMN_RIGHT * SECTION_HEIGHT;
 	section_.x = (section_.x + SECTION_WIDTH) % SPRITE_MAX;
-	destination_.x = destination_.x + SECTION_WIDTH;
+	destination_.x = destination_.x + STEP_SIZE;
 	if (destination_.x > WINDOW_WIDTH) {
 		destination_.x = 0;
 	}
@@ -61,7 +62,7 @@ Character::moveUp()
 	section_.y = COLUMN_UP * SECTION_HEIGHT;
 	section_.x = (section_.x + SECTION_WIDTH) % SPRITE_MAX;
 	if (destination_.y > LAND_POS) {
-		destination_.y = destination_.y - SECTION_HEIGHT;
+		destination_.y = destination_.y - STEP_SIZE;
 	}
 }
 
@@ -71,7 +72,7 @@ Character::moveDown()
 	section_.y = COLUMN_DOWN * SECTION_HEIGHT;
 	section_.x = (section_.x + SECTION_WIDTH) % SPRITE_MAX;
 	if (destination_.y < WINDOW_HEIGHT - 2*SECTION_HEIGHT) {
-		destination_.y = destination_.y + SECTION_HEIGHT;
+		destination_.y = destination_.y + STEP_SIZE;
 	}
 }
 

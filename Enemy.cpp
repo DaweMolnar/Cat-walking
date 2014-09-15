@@ -14,7 +14,7 @@ MovingItem(ren,filename)
 	section_.w = SECTION_WIDTH;
 	section_.h = SECTION_HEIGHT;
 
-	speed_ = rand() % 3;
+	speed_ = rand() % 10 + 10;
 	destination_.x = rand() % (WINDOW_WIDTH - 2 * SECTION_HEIGHT);
 	destination_.y = 0;
 	destination_.w = SECTION_WIDTH * 2;
@@ -39,7 +39,7 @@ void
 Enemy::move()
 {
 	if (destination_.y < WINDOW_HEIGHT - 2 * SECTION_HEIGHT) {
-		destination_.y = destination_.y + speed_ + SECTION_HEIGHT;
+		destination_.y = destination_.y + speed_;
 	}
 	else {
 		finished_ = true;

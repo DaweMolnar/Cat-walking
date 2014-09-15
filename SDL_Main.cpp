@@ -129,7 +129,7 @@ SDL_Main::EventLoop()
 		while (SDL_PollEvent(&e)) {
 			handleEvents(e);
 		}
-		SDL_Delay(200);
+		SDL_Delay(50);
 	}
 	return retCause_;
 }
