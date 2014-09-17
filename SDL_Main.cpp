@@ -8,10 +8,9 @@
 
 SDL_Main::SDL_Main(SDL_Window& window)
 	: 
-	run_(true),
+	IState(window),
 	score_(0),
-	retCause_(0),
-	win_(window)
+	retCause_(0)
 {
 	ren_ = SDL_CreateRenderer(&win_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (ren_ == 0) {

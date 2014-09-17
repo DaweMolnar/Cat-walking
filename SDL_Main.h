@@ -1,4 +1,5 @@
 #pragma once
+#include "IState.h"
 #include "Character.h"
 #include "Enemy.h"
 #include <SDL.h>
@@ -6,12 +7,11 @@
 #include <SDL_ttf.h>
 #include <vector>
 
-class SDL_Main
+class SDL_Main:
+	public IState
 {
-	bool run_;
 	unsigned int score_;
 	unsigned int retCause_;
-	SDL_Window &win_;
 	SDL_Renderer *ren_;
 	SDL_Texture *background_;
 	Character* catChar_;
@@ -26,7 +26,7 @@ class SDL_Main
 public:
 	SDL_Main(SDL_Window& window);
 	~SDL_Main();
-	int EventLoop();
+	virtual int EventLoop();
 	bool run() { return run_; }
 };
 

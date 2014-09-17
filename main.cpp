@@ -22,7 +22,7 @@ int main(){
 	SDL_Window* window = createWindow();
 	srand(time(NULL));
 	while(endCause == 0) {
-		SDL_Main* catProg = new SDL_Main(*window);
+		IState* catProg = new SDL_Main(*window);
 		endCause = catProg->EventLoop();
 		delete catProg;
 	}
