@@ -3,7 +3,8 @@ CFLAGS = \
 				-std=c++11 \
 				-Wall \
 				-Wpedantic \
-				-Wextra
+				-Wextra \
+				-g
 
 INCLUDES= -I. \
 					-I/usr/include/SDL2
@@ -17,9 +18,11 @@ DEPS = Enemy.h \
 			MovingItem.h \
 			SDL_Main.h \
 			Utils.h \
-			Character.h
+			Character.h \
+			MenuState.h \
+			IState.h
 
-OBJ = Utils.o Enemy.o MovingItem.o Character.o SDL_Main.o main.o
+OBJ = Utils.o IState.o Enemy.o MenuState.o MovingItem.o Character.o SDL_Main.o main.o
 
 %.o: %.cpp $(DEPS)
 	$(CC) $(CFLAGS) -c -o $@ $< $(INCLUDES)

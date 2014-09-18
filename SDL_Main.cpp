@@ -12,18 +12,11 @@ SDL_Main::SDL_Main(SDL_Window& window)
 	score_(0),
 	retCause_(0)
 {
-	ren_ = SDL_CreateRenderer(&win_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (ren_ == 0) {
-		throw std::runtime_error(SDL_GetError());
-	}
 	background_ = IMG_LoadTexture(ren_, "Sprites/background.png");
 	if (background_ == 0) {
 		throw std::runtime_error(SDL_GetError());
 	}
-	if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG) {
-		throw std::runtime_error(SDL_GetError());
-	}
-	TTF_Init();
+
 	font_ = TTF_OpenFont("sample.ttf", 20);
 	catChar_ = new Character(*ren_, "Sprites/catsheet.png");
 	addNewEnemies();
@@ -34,14 +27,10 @@ SDL_Main::printScore()
 {
 	SDL_Color color = { 255, 255, 255, 255 };
 	std::string scoreText("Score: " + std::to_string(score_));
-	SDL_Surface *surf = TTF_RenderText_Blended(font_, scoreText.c_str(), color);
-	SDL_Texture* score = SDL_CreateTextureFromSurface(ren_, surf);
-	SDL_FreeSurface(surf);
 	SDL_Rect destination;
 	destination.x = 20;
 	destination.y = 20;
-	SDL_QueryTexture(score, NULL, NULL, &destination.w, &destination.h);
-	SDL_RenderCopy(ren_, score, NULL, &destination);
+	renderText(color,destination,scoreText);
 }
 
 void
