@@ -1,4 +1,4 @@
-#include "SDL_Main.h"
+#include "GameState.h"
 #include <iostream>
 #include <errno.h>
 #include <algorithm>
@@ -6,7 +6,7 @@
 #include <Utils.h>
 #define MAX_ENEMY 5
 
-SDL_Main::SDL_Main(SDL_Window& window)
+GameState::GameState(SDL_Window& window)
 	: 
 	IState(window),
 	score_(0),
@@ -23,7 +23,7 @@ SDL_Main::SDL_Main(SDL_Window& window)
 }
 
 void
-SDL_Main::printScore()
+GameState::printScore()
 {
 	SDL_Color color = { 255, 255, 255, 255 };
 	std::string scoreText("Score: " + std::to_string(score_));
@@ -34,7 +34,7 @@ SDL_Main::printScore()
 }
 
 void
-SDL_Main::handleEvents(SDL_Event &e)
+GameState::handleEvents(SDL_Event &e)
 {
 	switch (e.type) {
 	case SDL_KEYDOWN:
@@ -61,14 +61,14 @@ bool isEnemyFinished(Enemy* e)
 	return e->finished();
 }
 void
-SDL_Main::addNewEnemies()
+GameState::addNewEnemies()
 {
 	for (unsigned int i = enemyList_.size(); i < MAX_ENEMY; i++) {
 		enemyList_.push_back(new Enemy(*ren_, "Sprites/faller.png"));
 	}
 }
 void
-SDL_Main::moveItems()
+GameState::moveItems()
 {
 	catChar_->move();
 	for (unsigned int i = 0; i < enemyList_.size(); i++) {
@@ -87,7 +87,7 @@ SDL_Main::moveItems()
 }
 
 void
-SDL_Main::renderItems()
+GameState::renderItems()
 {
 	SDL_RenderClear(ren_);
 	SDL_RenderCopy(ren_, background_, NULL, NULL);
@@ -103,7 +103,7 @@ SDL_Main::renderItems()
 }
 
 int
-SDL_Main::EventLoop()
+GameState::EventLoop()
 {
 	while (run_) {
 		moveItems();
@@ -117,7 +117,7 @@ SDL_Main::EventLoop()
 	return retCause_;
 }
 
-SDL_Main::~SDL_Main()
+GameState::~GameState()
 {
 	SDL_DestroyRenderer(ren_);
 }

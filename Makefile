@@ -16,13 +16,13 @@ LIBS= -lstdc++ \
 
 DEPS = Enemy.h \
 			MovingItem.h \
-			SDL_Main.h \
+			GameState.h \
 			Utils.h \
 			Character.h \
 			MenuState.h \
 			IState.h
 
-OBJ = Utils.o IState.o Enemy.o MenuState.o MovingItem.o Character.o SDL_Main.o main.o
+OBJ = Utils.o IState.o Enemy.o MenuState.o MovingItem.o Character.o GameState.o main.o
 
 %.o: %.cpp $(DEPS)
 	$(CC) $(CFLAGS) -c -o $@ $< $(INCLUDES)

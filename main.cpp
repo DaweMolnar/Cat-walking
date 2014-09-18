@@ -1,4 +1,4 @@
-#include "SDL_Main.h"
+#include "GameState.h"
 #include "MenuState.h"
 #include "Utils.h"
 #include <stdexcept>
@@ -33,7 +33,7 @@ int main(){
 		IState* catProg;
 		switch(CurrentState) {
 			case GAME:
-				catProg = new SDL_Main(*window);
+				catProg = new GameState(*window);
 			break;
 			case ENDMENU:
 				catProg = new MenuState(*window);

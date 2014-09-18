@@ -5,7 +5,7 @@
 #include <SDL.h>
 #include <vector>
 
-class SDL_Main:
+class GameState:
 	public IState
 {
 	unsigned int score_;
@@ -20,8 +20,8 @@ class SDL_Main:
 	void moveItems();
 	void addNewEnemies();
 public:
-	SDL_Main(SDL_Window& window);
-	~SDL_Main();
+	GameState(SDL_Window& window);
+	~GameState();
 	virtual int EventLoop();
 	bool run() { return run_; }
 };
