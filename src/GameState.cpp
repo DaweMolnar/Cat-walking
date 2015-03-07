@@ -3,7 +3,7 @@
 #include <errno.h>
 #include <algorithm>
 #include <stdexcept>
-#include <Utils.h>
+#include "Utils.h"
 #define MAX_ENEMY 5
 
 GameState::GameState(SDL_Window& window)
