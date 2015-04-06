@@ -46,6 +46,8 @@ GameState::handleEvents(SDL_Event &e)
 			catChar_->turnUp();
 		else if (e.key.keysym.sym == SDLK_DOWN)
 			catChar_->turnDown();
+		else if (e.key.keysym.sym == SDLK_SPACE)
+			shot(catChar_->getDestination());
 		break;
 	case SDL_QUIT:
 		retCause_ = -1;
@@ -56,10 +58,22 @@ GameState::handleEvents(SDL_Event &e)
 		break;
 	}
 }
+void GameState::shot(SDL_Rect& rect)
+{
+	shotList_.push_back(new Missile(*ren_, "Sprites/faller.png", rect));
+}
+
 bool isEnemyFinished(Enemy* e)
 {
 	return e->finished();
 }
+
+
+bool isMissileFinished(Missile* e)
+{
+	return e->finished();
+}
+
 void
 GameState::addNewEnemies()
 {
@@ -67,6 +81,7 @@ GameState::addNewEnemies()
 		enemyList_.push_back(new Enemy(*ren_, "Sprites/faller.png"));
 	}
 }
+SDL_Rect* r;
 void
 GameState::moveItems()
 {
@@ -82,7 +97,14 @@ GameState::moveItems()
 			run_ = false;
 		}
 	}
+	for (unsigned int i = 0; i < shotList_.size(); i++) {
+		shotList_[i]->move();
+		r = new SDL_Rect(shotList_[i]->getDestination());
+		enemyList_.erase(std::remove_if(std::begin(enemyList_), std::end(enemyList_), [](Enemy* e) {return e->isCollide(*r);}), std::end(enemyList_));
+	}
 	enemyList_.erase(std::remove_if(std::begin(enemyList_), std::end(enemyList_), isEnemyFinished), std::end(enemyList_));
+	shotList_.erase(std::remove_if(std::begin(shotList_), std::end(shotList_), isMissileFinished), std::end(shotList_));
+	
 	addNewEnemies();
 }
 
@@ -97,6 +119,9 @@ GameState::renderItems()
 	SDL_RenderCopy(ren_, text, &sect, &dest);
 	for (unsigned int i = 0; i < enemyList_.size(); i++) {
 		SDL_RenderCopy(ren_, enemyList_[i]->getTexture(), &enemyList_[i]->getSection(), &enemyList_[i]->getDestination());
+	}
+	for (unsigned int i = 0; i < shotList_.size(); i++) {
+		SDL_RenderCopy(ren_, shotList_[i]->getTexture(), &shotList_[i]->getSection(), &shotList_[i]->getDestination());
 	}
 	printScore();
 	SDL_RenderPresent(ren_);

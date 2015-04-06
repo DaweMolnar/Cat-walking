@@ -1,4 +1,4 @@
-add_library(Characters Character.cpp Enemy.cpp MovingItem.cpp IState.cpp Utils.cpp GameState.cpp MenuState.cpp)
+add_library(Characters Character.cpp Enemy.cpp Missile.cpp MovingItem.cpp IState.cpp Utils.cpp GameState.cpp MenuState.cpp)
 add_executable(Catwalk main.cpp)
 include(FindPkgConfig)
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)

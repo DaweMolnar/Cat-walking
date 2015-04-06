@@ -2,6 +2,7 @@
 #include "IState.h"
 #include "Character.h"
 #include "Enemy.h"
+#include "Missile.h"
 #include <SDL.h>
 #include <vector>
 
@@ -13,12 +14,14 @@ class GameState:
 	SDL_Texture *background_;
 	Character* catChar_;
 	std::vector<Enemy*> enemyList_;
+	std::vector<Missile*> shotList_;
 
 	void printScore();
 	void handleEvents(SDL_Event &e);
 	void renderItems();
 	void moveItems();
 	void addNewEnemies();
+	void shot(SDL_Rect& rect);
 public:
 	GameState(SDL_Window& window);
 	~GameState();
