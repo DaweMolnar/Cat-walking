@@ -60,7 +60,7 @@ GameState::handleEvents(SDL_Event &e)
 }
 void GameState::shot(SDL_Rect& rect)
 {
-	shotList_.push_back(new Missile(*ren_, "Sprites/faller.png", rect));
+	shotList_.push_back(new Missile(*ren_, "Sprites/rocket_ship.png", rect));
 }
 
 bool isEnemyFinished(Enemy* e)
@@ -78,7 +78,7 @@ void
 GameState::addNewEnemies()
 {
 	for (unsigned int i = enemyList_.size(); i < MAX_ENEMY; i++) {
-		enemyList_.push_back(new Enemy(*ren_, "Sprites/faller.png"));
+		enemyList_.push_back(new Enemy(*ren_, "Sprites/gromit.png"));
 	}
 }
 SDL_Rect* r;

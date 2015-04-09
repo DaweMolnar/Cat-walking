@@ -1,8 +1,8 @@
 #include "Missile.h"
 #include <time.h>
 
-#define SECTION_WIDTH 20
-#define SECTION_HEIGHT 20
+#define SECTION_WIDTH 32
+#define SECTION_HEIGHT 32
 
 Missile::Missile(SDL_Renderer &ren, std::string filename, SDL_Rect& destination):
 MovingItem(ren,filename)
@@ -16,6 +16,8 @@ MovingItem(ren,filename)
 
 	speed_ = rand() % 10 + 10;
 	destination_ = destination;
+	destination_.w = SECTION_WIDTH;
+	destination_.h = SECTION_HEIGHT;
 }
 
 bool

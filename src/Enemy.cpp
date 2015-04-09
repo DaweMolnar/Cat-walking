@@ -1,8 +1,8 @@
 #include "Enemy.h"
 #include <time.h>
 
-#define SECTION_WIDTH 20
-#define SECTION_HEIGHT 20
+#define SECTION_WIDTH 32
+#define SECTION_HEIGHT 32
 
 Enemy::Enemy(SDL_Renderer &ren, std::string filename):
 MovingItem(ren,filename)
@@ -17,8 +17,8 @@ MovingItem(ren,filename)
 	speed_ = rand() % 10 + 10;
 	destination_.x = rand() % (WINDOW_WIDTH - 2 * SECTION_HEIGHT);
 	destination_.y = 0;
-	destination_.w = SECTION_WIDTH * 2;
-	destination_.h = SECTION_HEIGHT * 2;
+	destination_.w = SECTION_WIDTH;
+	destination_.h = SECTION_HEIGHT;
 }
 
 bool
