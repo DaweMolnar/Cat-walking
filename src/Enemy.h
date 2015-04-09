@@ -6,6 +6,7 @@ class Enemy :
 {
 	unsigned int speed_;
 	bool finished_;
+	double origX_;
 public:
 	Enemy(SDL_Renderer &ren, std::string filename);
 	~Enemy() {}

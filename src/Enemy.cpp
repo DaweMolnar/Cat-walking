@@ -15,7 +15,8 @@ MovingItem(ren,filename)
 	section_.h = SECTION_HEIGHT;
 
 	speed_ = rand() % 10 + 10;
-	destination_.x = rand() % (WINDOW_WIDTH - 2 * SECTION_HEIGHT);
+	origX_ = rand() % (WINDOW_WIDTH - 2 * SECTION_HEIGHT);
+	destination_.x = origX_;
 	destination_.y = 0;
 	destination_.w = SECTION_WIDTH;
 	destination_.h = SECTION_HEIGHT;
@@ -34,12 +35,13 @@ Enemy::isCollide(SDL_Rect& otherDest)
 	}
 	return false;
 }
-
+#include <cmath>
 void
 Enemy::move()
 {
 	if (destination_.y < WINDOW_HEIGHT - 2 * SECTION_HEIGHT) {
 		destination_.y = destination_.y + speed_;
+		destination_.x = origX_+cos(destination_.y/speed_)*speed_;
 	}
 	else {
 		finished_ = true;
