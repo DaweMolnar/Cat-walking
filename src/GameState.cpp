@@ -106,19 +106,20 @@ GameState::missileCollision(Missile* missile)
 void
 GameState::moveItems()
 {
-	catChar_->move();
+
+	for (unsigned int i = 0; i < shotList_.size(); i++) {
+		shotList_[i]->move();
+		if(missileCollision(shotList_[i])) shotList_[i]->boom();
+	}
 	for (unsigned int i = 0; i < enemyList_.size(); i++) {
-		enemyList_[i]->move();
 		SDL_Rect rect = catChar_->getDestination();
 		if (enemyList_[i]->isCollide(rect)) {
 			LOG("Game ended with score : " + std::to_string(score_));
 			run_ = false;
 		}
+		enemyList_[i]->move();
 	}
-	for (unsigned int i = 0; i < shotList_.size(); i++) {
-		shotList_[i]->move();
-		if(missileCollision(shotList_[i])) shotList_[i]->boom();
-	}
+	catChar_->move();
 	enemyList_.erase(std::remove_if(std::begin(enemyList_), std::end(enemyList_), isEnemyFinished), std::end(enemyList_));
 	shotList_.erase(std::remove_if(std::begin(shotList_), std::end(shotList_), isMissileFinished), std::end(shotList_));
 	

@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include <time.h>
+#include <cmath>
 
 #define SECTION_WIDTH 32
 #define SECTION_HEIGHT 32
@@ -35,7 +36,7 @@ Enemy::isCollide(SDL_Rect& otherDest)
 	}
 	return false;
 }
-#include <cmath>
+
 void
 Enemy::move()
 {

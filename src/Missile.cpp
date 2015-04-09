@@ -20,20 +20,6 @@ MovingItem(ren,filename)
 	destination_.h = SECTION_HEIGHT;
 }
 
-bool
-Missile::isCollide(SDL_Rect& otherDest)
-{
-	//Axis-Aligned Bounding Box
-	if (otherDest.x < destination_.x + destination_.w &&
-		otherDest.x + otherDest.w > destination_.x &&
-		otherDest.y < destination_.y + destination_.h &&
-		otherDest.h + otherDest.y > destination_.y) {
-		// collision detected!
-		return true;
-	}
-	return false;
-}
-
 void
 Missile::move()
 {
