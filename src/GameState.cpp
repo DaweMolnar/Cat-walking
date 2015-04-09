@@ -111,7 +111,7 @@ GameState::moveItems()
 	}
 	for (unsigned int i = 0; i < shotList_.size(); i++) {
 		shotList_[i]->move();
-		missileCollision(shotList_[i]);
+		if(missileCollision(shotList_[i])) shotList_[i]->boom();
 	}
 	enemyList_.erase(std::remove_if(std::begin(enemyList_), std::end(enemyList_), isEnemyFinished), std::end(enemyList_));
 	shotList_.erase(std::remove_if(std::begin(shotList_), std::end(shotList_), isMissileFinished), std::end(shotList_));
