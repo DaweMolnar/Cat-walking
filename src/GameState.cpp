@@ -81,16 +81,28 @@ GameState::addNewEnemies()
 		enemyList_.push_back(new Enemy(*ren_, "Sprites/gromit.png"));
 	}
 }
-SDL_Rect* r;
+
+bool
+GameState::missileCollision(Missile* missile)
+{
+	std::size_t pos = 0;
+	for(auto enemy : enemyList_) {
+		if(enemy->isCollide(missile->getDestination())) {
+			score_+=10;
+			break;
+		}
+		pos++;
+	}
+	if(pos!=enemyList_.size()) {enemyList_.erase(enemyList_.begin()+pos); return true;}
+	return false;
+}
+
 void
 GameState::moveItems()
 {
 	catChar_->move();
 	for (unsigned int i = 0; i < enemyList_.size(); i++) {
 		enemyList_[i]->move();
-		if (enemyList_[i]->finished()) {
-			score_ += 10;
-		}
 		SDL_Rect rect = catChar_->getDestination();
 		if (enemyList_[i]->isCollide(rect)) {
 			LOG("Game ended with score : " + std::to_string(score_));
@@ -99,8 +111,7 @@ GameState::moveItems()
 	}
 	for (unsigned int i = 0; i < shotList_.size(); i++) {
 		shotList_[i]->move();
-		r = new SDL_Rect(shotList_[i]->getDestination());
-		enemyList_.erase(std::remove_if(std::begin(enemyList_), std::end(enemyList_), [](Enemy* e) {return e->isCollide(*r);}), std::end(enemyList_));
+		missileCollision(shotList_[i]);
 	}
 	enemyList_.erase(std::remove_if(std::begin(enemyList_), std::end(enemyList_), isEnemyFinished), std::end(enemyList_));
 	shotList_.erase(std::remove_if(std::begin(shotList_), std::end(shotList_), isMissileFinished), std::end(shotList_));

@@ -22,6 +22,7 @@ class GameState:
 	void moveItems();
 	void addNewEnemies();
 	void shot(SDL_Rect& rect);
+	bool missileCollision(Missile* missile);
 public:
 	GameState(SDL_Window& window);
 	~GameState();
