@@ -15,6 +15,7 @@ class GameState:
 	Character* catChar_;
 	std::vector<Enemy*> enemyList_;
 	std::vector<Missile*> shotList_;
+	time_t shotTime_; 
 
 	void printScore();
 	void handleEvents(SDL_Event &e);

@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include "Utils.h"
 #define MAX_ENEMY 5
+#define RELOAD_TIME 0.1
 
 GameState::GameState(SDL_Window& window)
 	: 
@@ -12,6 +13,7 @@ GameState::GameState(SDL_Window& window)
 	score_(0),
 	retCause_(0)
 {
+	shotTime_=time(0);
 	background_ = IMG_LoadTexture(ren_, "Sprites/background.png");
 	if (background_ == 0) {
 		throw std::runtime_error(SDL_GetError());
@@ -60,7 +62,11 @@ GameState::handleEvents(SDL_Event &e)
 }
 void GameState::shot(SDL_Rect& rect)
 {
-	shotList_.push_back(new Missile(*ren_, "Sprites/rocket_ship.png", rect));
+//	time_t currTime = time(0);
+//	if(difftime(currTime,shotTime_) > RELOAD_TIME) {
+		shotList_.push_back(new Missile(*ren_, "Sprites/rocket_ship.png", rect));
+//		shotTime_=time(0);
+//	}
 }
 
 bool isEnemyFinished(Enemy* e)
